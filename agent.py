@@ -1,4 +1,6 @@
+import logging
 import random
+import time
 from collections import deque
 
 import numpy as np
@@ -9,10 +11,8 @@ from helper import plot
 from model import Linear_QNET, QTrainer
 
 MAX_MEMORY = 100_000
-BATCH_SIZE = 1000
+BATCH_SIZE = 1_000
 LR = 0.001
-
-BLOCK_SIZE = 20
 
 class Agent:
     
@@ -24,12 +24,13 @@ class Agent:
         self.model = Linear_QNET(11, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
     
+    
     def get_state(self, game):
         head = game.snake[0]
-        point_l = Point(head.x - BLOCK_SIZE, head.y)
-        point_r = Point(head.x + BLOCK_SIZE, head.y)
-        point_u = Point(head.x, head.y - BLOCK_SIZE)
-        point_d = Point(head.x, head.y + BLOCK_SIZE)
+        point_l = Point(head.x - 20, head.y)
+        point_r = Point(head.x + 20, head.y)
+        point_u = Point(head.x, head.y - 20)
+        point_d = Point(head.x, head.y + 20)
         
         dir_l = game.direction == Direction.LEFT
         dir_r = game.direction == Direction.RIGHT
@@ -108,7 +109,6 @@ def train():
     record = 0
     agent = Agent()
     game = SnakeGameAI()
-    
     while True:
         # get old state
         state_old = agent.get_state(game)
@@ -143,6 +143,10 @@ def train():
             mean_score = total_score / agent.n_games
             plot_mean_scores.append(mean_score)
             plot(plot_scores, plot_mean_scores)
+            time.sleep(0.5)
 
-if __name__ == '__main__':
+def main():
     train()
+    
+if __name__ == '__main__':
+    main()
