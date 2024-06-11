@@ -2,9 +2,13 @@
 
 ## Description
 
+Credits: https://www.youtube.com/watch?v=L8ypSXwyBds
+
 This project is a Snake Game AI implemented in Python, using mainly pygame and pytorch. It utilizes a deep learning model to learn and make decisions based on the game state. The AI agent is trained using a Q-learning algorithm, which is a type of reinforcement learning.
 
 The AI agent is defined in `scripts/agent.py`, and the game logic is implemented in `scripts/game.py`. The deep learning model and its training logic are in `scripts/model.py`. The `scripts/helper.py` file contains utility functions for plotting the training progress.
+
+![alt text](training.png)
 
 ## Project Structure
 
