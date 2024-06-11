@@ -5,6 +5,7 @@ import numpy as np
 import torch
 
 from game import Direction, Point, SnakeGameAI
+from helper import plot
 from model import Linear_QNET, QTrainer
 
 MAX_MEMORY = 100_000
@@ -20,7 +21,6 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        # TODO: model, trainer
         self.model = Linear_QNET(11, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
     
@@ -138,7 +138,11 @@ def train():
                 
             print('Game:', agent.n_games, 'Score:', score, 'Record:', record)
             
-            # TODO: plot
+            plot_scores.append(score)
+            total_score += score
+            mean_score = total_score / agent.n_games
+            plot_mean_scores.append(mean_score)
+            plot(plot_scores, plot_mean_scores)
 
 if __name__ == '__main__':
     train()

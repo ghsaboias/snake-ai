@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -13,7 +14,7 @@ class Linear_QNET(nn.Module):
         self.linear2 = nn.Linear(hidden_size, output_size)
         
     def forward(self, x):
-        x = F.relu(self.lnear1(x))
+        x = F.relu(self.linear1(x))
         x = self.linear2(x)
         return x
     
@@ -48,7 +49,12 @@ class QTrainer:
             Returns:
                 None
             """
-            # Convert inputs to tensors
+            # Convert inputs to numpy arrays first
+            state = np.array(state)
+            next_state = np.array(next_state)
+            action = np.array(action)
+            reward = np.array(reward)
+            # Convert arrays to tensors
             state = torch.tensor(state, dtype=torch.float)
             next_state = torch.tensor(next_state, dtype=torch.float)
             action = torch.tensor(action, dtype=torch.float)
