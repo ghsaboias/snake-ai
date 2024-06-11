@@ -5,6 +5,7 @@ import numpy as np
 import torch
 
 from game import Direction, Point, SnakeGameAI
+from model import Linear_QNET, QTrainer
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
@@ -17,11 +18,11 @@ class Agent:
     def __init__(self):
         self.n_games = 0
         self.epsilon = 0 # randomness
-        self.gamma = 0 # discount rate
+        self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
         # TODO: model, trainer
-        self.model = None # TODO
-        self.trainer = None # TODO
+        self.model = Linear_QNET(11, 256, 3)
+        self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
     
     def get_state(self, game):
         head = game.snake[0]
@@ -93,7 +94,7 @@ class Agent:
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
-            prediction = self.model.predict(state0)
+            prediction = self.model(state0) # executes model's forward function
             move = torch.argmax(prediction).item()
             final_move[move] = 1
             
@@ -133,7 +134,7 @@ def train():
             
             if score > record:
                 record = score
-                # agent.model.save()
+                agent.model.save()
                 
             print('Game:', agent.n_games, 'Score:', score, 'Record:', record)
             
