@@ -50,8 +50,6 @@ python -m venv pygame_env
 
 3. Activate the virtual environment:
 
-Activate the virtual environment by running the appropriate command based on your operating system:
-
 - For Windows:
 
 ```bash
@@ -66,23 +64,17 @@ source pygame_env/bin/activate
 
 4. Install dependencies:
 
-Install the required dependencies by running the following command:
-
 ```bash
 pip install -r requirements.txt
 ```
 
 5. Run the Agent:
 
-To run the AI agent, execute the following command:
-
 ```bash
 python scripts/agent.py
 ```
 
-6. View training progress:
-
-Check the training progress by opening the `training.png` file.
+6. Check the training progress by opening the `training.png` file.
 
 ## Troubleshooting
 
