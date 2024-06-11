@@ -33,16 +33,12 @@ The AI agent is defined in `scripts/agent.py`, and the game logic is implemented
 
 1. Clone the repository:
 
-If the code is in a repository, clone it using:
-
 ```bash
 git clone git@github.com:ghsaboias/snake-ai.git
 cd snake-ai
 ```
 
 2. Create a virtual environment:
-
-Create a virtual environment called `pygame_env` by running the following command:
 
 ```bash
 python -m venv pygame_env
