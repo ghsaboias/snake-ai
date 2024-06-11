@@ -1,4 +1,4 @@
-# Project Name
+# Snake AI with pygame & pytorch
 
 ## Description
 
